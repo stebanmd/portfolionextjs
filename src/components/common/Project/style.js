@@ -31,6 +31,7 @@ ProjectWrapper.Card = styled.div`
         max-width: 90%;        
       `,
       md: css`
+        max-width: 495px;
         max-height: 330px;
       `,
     })}
@@ -73,7 +74,7 @@ ProjectWrapper.CardText = styled.div`
         ${TextStyleVariantsMap.paragraph2}
       `,
       md: css`
-        ${TextStyleVariantsMap.paragraph1}
+        ${TextStyleVariantsMap.smallestException}
       `,
     })}
     color: ${({ theme }) => theme.colors.secondary.main.contrastText};
