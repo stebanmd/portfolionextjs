@@ -18,13 +18,13 @@ const typographyVariants = {
   },
   // [paragraph1]
   paragraph1: {
-    fontSize: '18px',
+    fontSize: '28px',
     fontWeight: '400',
     lineHeight: 1.25, // 125%
   },
   // [paragraph2]
-  paragraph2: {
-    fontSize: '14px',
+  paragraph2: { 
+    fontSize: '18px',
     fontWeight: '400',
     lineHeight: 1.25, // 125%
   },

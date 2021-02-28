@@ -26,8 +26,15 @@ ProjectWrapper.Card = styled.div`
   position: relative;
   margin: 18px;
   width: 100%;
-  max-width: 495px;
-  max-height: 330px;
+  ${breakpointsMedia({
+      xs: css`
+        max-width: 90%;        
+      `,
+      md: css`
+        max-height: 330px;
+      `,
+    })}
+
   transition: ease-in .3s;
   border-radius: ${({ theme }) => theme.borderRadius};
   img{
@@ -56,9 +63,6 @@ ProjectWrapper.CardText = styled.div`
     align-items: center;
     margin-right: 18px;
   }
-  img{
-    border-radius: 0;
-  }
   h3 {
     margin-bottom: 4px;
     color: ${({ theme }) => theme.colors.secondary.main.contrastText};
@@ -66,10 +70,10 @@ ProjectWrapper.CardText = styled.div`
   p {
     ${breakpointsMedia({
       xs: css`
-        ${TextStyleVariantsMap.smallestExceptionXS}
+        ${TextStyleVariantsMap.paragraph2}
       `,
       md: css`
-        ${TextStyleVariantsMap.smallestException}
+        ${TextStyleVariantsMap.paragraph1}
       `,
     })}
     color: ${({ theme }) => theme.colors.secondary.main.contrastText};

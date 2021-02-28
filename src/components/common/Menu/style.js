@@ -8,15 +8,8 @@ export const MenuWrapper = styled.nav`
   align-items: center;
   padding: 18px 0;
   background: ${({ theme }) => theme.colors.secondary.main.color};
-  svg {
-    ${breakpointsMedia({
-      xs: css`
-        display: none;
-      `,
-      md: css`
-        display: block;
-      `,
-    })}
+  img {
+    max-height: 60px;
   }
 `;
 

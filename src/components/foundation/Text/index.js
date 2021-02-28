@@ -33,7 +33,6 @@ export const TextStyleVariantsMap = {
 
 const TextBase = styled.span`
   ${({ variant }) => TextStyleVariantsMap[variant]}
-  font-family: 'Fira Sans Condensed', sans-serif;
   ${propToStyle('textAlign')}
 `;
 

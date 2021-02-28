@@ -17,7 +17,7 @@ const links = [
 export default function Menu() {
   return (
     <MenuWrapper>
-      <Logo />
+      <img src="/images/logo.png" alt="logo"></img>
       <MenuWrapper.RightSide>
         {links.map((link) => {
           return (
