@@ -14,14 +14,14 @@ const cards = [
     img: '/images/quiz-alura.png',
     title: 'Quiz Alura',
     resume: 'Quiz criado durante a imersão React da Alura',
-  },  
+  },
   {
-    url: '//settings',
-    img: 'https://pronovix.com/sites/default/files/blogpost/image/blogpost_joker_images_1200x800-01.png',    
+    url: 'about:blank',
+    img: 'https://pronovix.com/sites/default/files/blogpost/image/blogpost_joker_images_1200x800-01.png',
     title: 'Lorem ipsum',
     resume: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
-  },  
-]
+  },
+];
 
 export default function Project() {
   return (
@@ -33,7 +33,7 @@ export default function Project() {
         {cards.map((card) => (
           <ProjectWrapper.Card key={card.url}>
             <Text tag="a" href={card.url} target="_blank">
-              <img src={card.img} alt="Imagem do projeto"/>
+              <img src={card.img} alt="Imagem do projeto" />
               <ProjectWrapper.CardText>
                 <header>
                   <Text tag="h3" variant="paragraph1">{card.title}</Text>
@@ -43,7 +43,7 @@ export default function Project() {
             </Text>
           </ProjectWrapper.Card>
         ))}
-        
+
       </ProjectWrapper.CardGroup>
     </ProjectWrapper>
   );

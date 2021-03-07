@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import styled from 'styled-components';
 
 export const FooterWrapper = styled.footer`
@@ -25,15 +24,15 @@ export const FooterWrapper = styled.footer`
 export const medias = [
   {
     alt: 'Veja meus projetos no Github',
-    icon: 'https://luan-godoy-jams-tack-alura.vercel.app/images/github.svg',
+    icon: '/images/github.svg',
     url: 'https://github.com/stebanmd',
   },
   {
     alt: 'Acesse o meu Linkedin',
-    icon: 'https://luan-godoy-jams-tack-alura.vercel.app/images/linkedin.svg',
+    icon: '/images/linkedin.svg',
     url: 'https://www.linkedin.com/in/steban-domingues-2a7a9474/',
-  }
-]
+  },
+];
 
 export default function Footer() {
   return (
@@ -41,7 +40,7 @@ export default function Footer() {
       <div>
         {medias.map((media) => (
           <li key={media.url}>
-            <a href={media.url} target="_blank">
+            <a href={media.url} rel="noreferrer" target="_blank">
               <img src={media.icon} alt={media.alt} />
             </a>
           </li>

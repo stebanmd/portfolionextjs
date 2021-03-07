@@ -34,5 +34,5 @@ export default {
     xl: 1200,
   },
   fontFamily: '\'Fira Sans Condensed\', sans-serif',
-  borderRadius: '16px'
+  borderRadius: '16px',
 };

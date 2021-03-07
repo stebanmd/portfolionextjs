@@ -19,16 +19,16 @@ MenuWrapper.RightSide = styled.div`
   a {
     text-decoration: none;
     ${breakpointsMedia({
-      xs: css`
+    xs: css`
         margin: 0 8px;
         overflow-x: scroll;
         ${TextStyleVariantsMap.paragraph2}
       `,
-      md: css`
+    md: css`
         margin: 0 18px;
         ${TextStyleVariantsMap.paragraph1}
       `,
-    })}
+  })}
     color: ${({ theme }) => theme.colors.primary.main.contrastText};
   }
 `;

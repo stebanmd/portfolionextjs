@@ -27,14 +27,14 @@ ProjectWrapper.Card = styled.div`
   margin: 18px;
   width: 100%;
   ${breakpointsMedia({
-      xs: css`
+    xs: css`
         max-width: 90%;        
       `,
-      md: css`
+    md: css`
         max-width: 495px;
         max-height: 330px;
       `,
-    })}
+  })}
 
   transition: ease-in .3s;
   border-radius: ${({ theme }) => theme.borderRadius};
@@ -52,7 +52,7 @@ ProjectWrapper.CardText = styled.div`
   align-items: center;
   padding: 12px;
   border-radius: 0  0 15px 15px;
-  background: ${({theme}) => theme.colors.primary.main.color};
+  background: ${({ theme }) => theme.colors.primary.main.color};
   width: 100%;
   div {
     background: ${({ theme }) => theme.colors.secondary.main.color};
@@ -70,13 +70,13 @@ ProjectWrapper.CardText = styled.div`
   }
   p {
     ${breakpointsMedia({
-      xs: css`
+    xs: css`
         ${TextStyleVariantsMap.paragraph2}
       `,
-      md: css`
+    md: css`
         ${TextStyleVariantsMap.smallestException}
       `,
-    })}
+  })}
     color: ${({ theme }) => theme.colors.secondary.main.contrastText};
   }
 `;
