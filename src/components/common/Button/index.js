@@ -22,12 +22,20 @@ export const Button = styled.button`
   opacity: 1;
 
   transition: opacity ${({ theme }) => theme.transition};
-  border-radius: ${({ theme }) => theme.borderRadius};
+  
   ${({ ghost }) => (ghost ? ButtonGhost : ButtonDefault)} 
   &:hover,
   &:focus {
     opacity: .5;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .2;
+  }
+  ${({ fullWidth }) => fullWidth && css`
+    width: 100%;
+  `};
 
   ${propToStyle('margin')}
   ${propToStyle('display')}
@@ -38,7 +46,6 @@ export const Button = styled.button`
     `,
     md: css`
       ${TextStyleVariantsMap.paragraph1};
-    
     `,
   })}
 

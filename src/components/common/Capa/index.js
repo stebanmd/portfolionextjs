@@ -17,9 +17,6 @@ export default function Capa() {
         flexWrap="wrap"
         flexDirection="column"
         justifyContent="space-between"
-        backgroundImage="url(/images/bubbles.svg)"
-        backgroundRepeat="no-repeat"
-        backgroundPosition="bottom right"
       >
         <Grid.Container
           marginTop={{ xs: '32px', md: '200px' }}

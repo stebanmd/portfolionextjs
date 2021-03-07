@@ -18,6 +18,16 @@ const colors = {
       contrastText: '#000',
     },
   },
+  tertiary: {
+    main: {
+      color: '#070C0E',
+      contrastText: '#fff',
+    },
+    light: {
+      color: '#88989E',
+      contrastText: '#fff',
+    },
+  },
   modes: {
     dark: {},
   },
