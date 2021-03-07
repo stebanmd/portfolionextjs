@@ -35,6 +35,7 @@ export default function TextField({
         name={name}
         onChange={onChange}
         value={value}
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
       />
     </InputWrapper>
