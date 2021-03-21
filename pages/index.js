@@ -1,16 +1,20 @@
-import React from 'react';
-import Footer from '../src/components/common/Footer';
-import Menu from '../src/components/common/Menu';
-import Capa from '../src/components/common/Capa';
-import Project from '../src/components/common/Project';
+import HomeScreen from '../src/components/screens/HomeScreen';
+import websitePageHOC from '../src/components/wrappers/WebsitePage/hoc';
 
-export default function Home() {
-  return (
-    <>
-      <Capa />
-      <Menu />
-      <Project />
-      <Footer />
-    </>
-  );
-}
+export default websitePageHOC(HomeScreen, {
+  pageWrapperProps: {
+    seoProps: {
+      headTitle: 'Home',
+    },
+    pageBoxProps: {
+      backgroundImage: 'url(/images/bubbles.svg)',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'bottom right',
+    },
+    menuProps: {
+      display: true,
+      displayCover: true,
+    },
+  },
+
+});

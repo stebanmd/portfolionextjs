@@ -2,27 +2,7 @@ import styled, { css } from 'styled-components';
 import { breakpointsMedia } from '../../../theme/utils/breakpointsMedia';
 import { TextStyleVariantsMap } from '../../foundation/Text';
 
-export const ProjectWrapper = styled.section`
-  min-height: calc(100vh - 160px);
-  color: ${({ theme }) => theme.colors.primary.main.contrastText};
-`;
-
-ProjectWrapper.Title = styled.header`
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  h4 { margin: 0; }
-`;
-
-ProjectWrapper.CardGroup = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
-
-ProjectWrapper.Card = styled.div`
+export const ProjectCard = styled.div`
   position: relative;
   margin: 18px;
   width: 100%;
@@ -45,7 +25,7 @@ ProjectWrapper.Card = styled.div`
   }
 `;
 
-ProjectWrapper.CardText = styled.div`
+export const ProjectCardText = styled.div`
   position: absolute;
   bottom: 0px;
   display: flex;

@@ -8,6 +8,9 @@ export const MenuWrapper = styled.nav`
   align-items: center;
   padding: 18px 0;
   background: ${({ theme }) => theme.colors.secondary.main.color};
+  position: sticky;
+  top: 0;
+  z-index: 10;
   img {
     max-height: 60px;
   }
