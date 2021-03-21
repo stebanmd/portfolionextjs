@@ -46,7 +46,7 @@ export default function Capa() {
             >
               <img
                 alt="Imagem de pessoa varios acessórios ao redor"
-                style={{ display: 'block', margin: 'auto' }}
+                style={{ display: 'block', margin: 'auto', width: '100%' }}
                 src="/images/capa.jpeg"
               />
             </Grid.Col>

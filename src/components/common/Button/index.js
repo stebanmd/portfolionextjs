@@ -1,8 +1,12 @@
+/* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import { TextStyleVariantsMap } from '../../foundation/Text';
 import { breakpointsMedia } from '../../../theme/utils/breakpointsMedia';
 import { propToStyle } from '../../../theme/utils/propToStyle';
+import Link from '../Link';
 
 const ButtonGhost = css`
   color: ${({ theme, variant }) => get(theme, `colors.${variant}.color`)};
@@ -14,20 +18,32 @@ const ButtonDefault = css`
   background-color: ${({ theme, variant }) => get(theme, `colors.${variant}.color`)};
 `;
 
-export const Button = styled.button`
+const ButtonWrapper = styled.button`
   border: 0;
   cursor: pointer;
   padding: 12px 26px;
   font-weight: bold;
   opacity: 1;
 
-  transition: opacity ${({ theme }) => theme.transition};
-  
+  ${TextStyleVariantsMap.smallestException};
   ${({ ghost }) => (ghost ? ButtonGhost : ButtonDefault)} 
+
+  transition: opacity ${({ theme }) => theme.transition};
+  border-radius: ${({ theme }) => theme.borderRadius};
+
   &:hover,
   &:focus {
     opacity: .5;
   }
+
+  ${breakpointsMedia({
+    xs: css`
+      ${TextStyleVariantsMap.smallestException};
+    `,
+    md: css`
+      ${TextStyleVariantsMap.paragraph1};    
+    `,
+  })}
 
   &:disabled {
     cursor: not-allowed;
@@ -40,13 +56,27 @@ export const Button = styled.button`
   ${propToStyle('margin')}
   ${propToStyle('display')}
 
-  ${breakpointsMedia({
-    xs: css`
-      ${TextStyleVariantsMap.smallestException};
-    `,
-    md: css`
-      ${TextStyleVariantsMap.paragraph1};
-    `,
-  })}
-
 `;
+
+export function Button({ href, children, ...props }) {
+  const hasHref = Boolean(href);
+  const tag = hasHref ? Link : 'button';
+  return (
+    <ButtonWrapper
+      as={tag}
+      href={href}
+      {...props}
+    >
+      {children}
+    </ButtonWrapper>
+  );
+}
+
+Button.propTypes = {
+  href: PropTypes.string,
+  children: PropTypes.node.isRequired,
+};
+
+Button.defaultProps = {
+  href: undefined,
+};

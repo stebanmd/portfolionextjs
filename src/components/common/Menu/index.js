@@ -1,37 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Logo from '../../../theme/Logo';
 import { Text } from '../../foundation/Text';
-import ContactForm from '../../pattenrs/ContactForm';
-import { Modal } from '../Modal';
 import { MenuWrapper } from './style';
 
-export default function Menu() {
-  const [isModalOpen, setModalState] = React.useState(false);
-
+export default function Menu({ onContactClick }) {
   return (
     <MenuWrapper>
       <Logo />
-      <Modal isOpen={isModalOpen} onClose={() => setModalState(false)}>
-        {(propsDoModal) => (
-          <ContactForm propsDoModal={propsDoModal} />
-        )}
-      </Modal>
-
       <MenuWrapper.RightSide>
         <li>
           <Text
             tag="a"
-            href="/skills"
+            href="/about"
             variant="paragraph1"
           >
-            Habilidades
+            Sobre Mim
           </Text>
         </li>
         <li>
           <Text
             cursor="pointer"
             variant="paragraph1"
-            onClick={() => setModalState(true)}
+            onClick={onContactClick}
           >
             Contato
           </Text>
@@ -40,3 +31,7 @@ export default function Menu() {
     </MenuWrapper>
   );
 }
+
+Menu.propTypes = {
+  onContactClick: PropTypes.func.isRequired,
+};
