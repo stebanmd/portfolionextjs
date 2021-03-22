@@ -6,11 +6,6 @@ export default websitePageHOC(HomeScreen, {
     seoProps: {
       headTitle: 'Home',
     },
-    pageBoxProps: {
-      backgroundImage: 'url(/images/bubbles.svg)',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'bottom right',
-    },
     menuProps: {
       display: true,
       displayCover: true,
