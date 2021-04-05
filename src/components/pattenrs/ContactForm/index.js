@@ -1,4 +1,5 @@
 import React from 'react';
+import * as yup from 'yup';
 import { Lottie } from '@crello/react-lottie';
 import sentAnimation from '../../animations/sent.json';
 import loadingAnimation from '../../animations/loading.json';
@@ -8,6 +9,8 @@ import { Button } from '../../common/Button';
 import { Box } from '../../foundation/layout/Box';
 import { Grid } from '../../foundation/layout/Grid';
 import { Text } from '../../foundation/Text';
+import { useForm } from '../../../infra/hooks/useForm';
+import { contactService } from '../../../services/contactService';
 
 const formStates = {
   DEFAULT: 'DEFAULT',
@@ -16,59 +19,62 @@ const formStates = {
   ERROR: 'ERROR',
 };
 
-function FormContent() {
+const messageSchema = yup.object().shape({
+  name: yup.string()
+    .min(3, 'Preencha pelo menos 3 caracteres')
+    .required('Campo obrigatório'),
+  email: yup.string()
+    .min(8, 'Sua senha precisa ter ao menos 8 caracteres')
+    .email('Esse endereço de e-mail é invalido')
+    .required('Campo obrigatório'),
+  message: yup.string()
+    .min(3, 'Preencha pelo menos 3 caracteres')
+    .required('Campo obrigatório'),
+});
+
+// eslint-disable-next-line react/prop-types
+function FormContent({ onSubmit }) {
   const [isFormSubmitted, setIsFormSubmitted] = React.useState(false);
-  const [isEmailValid, setIsEmailValid] = React.useState(false);
   const [submissionStatus, setSubmissionStatus] = React.useState(formStates.DEFAULT);
 
-  const [contactInfo, setContactInfo] = React.useState({
+  const initialValues = {
     email: '',
     message: '',
     name: '',
-  });
+  };
 
-  function handleChange(event) {
-    const fieldName = event.target.getAttribute('name');
-    setContactInfo({
-      ...contactInfo,
-      [fieldName]: event.target.value,
-    });
-  }
-
-  function handleSubmission(event) {
-    event.preventDefault();
-    setIsFormSubmitted(true);
-    setSubmissionStatus(formStates.LOADING);
-
-    fetch('https://contact-form-api-jamstack.herokuapp.com/message', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(contactInfo),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error('Could not sent message');
+  const form = useForm({
+    initialValues,
+    onSubmit: (values) => {
+      setSubmissionStatus(formStates.LOADING);
+      form.setIsFormDisabled(true);
+      contactService.sendRequest({
+        name: values.name,
+        email: values.email,
+        message: values.message,
       })
-      .then(() => {
-        setSubmissionStatus(formStates.DONE);
-      })
-      .catch(() => {
-        setSubmissionStatus(formStates.ERROR);
+        .then(() => {
+          setSubmissionStatus(formStates.DONE);
+        })
+        .catch(() => {
+          setSubmissionStatus(formStates.ERROR);
+        })
+        .finally(() => {
+          setIsFormSubmitted(true);
+          form.setIsFormDisabled(false);
+        });
+    },
+    async validateSchema(values) {
+      return messageSchema.validate(values, {
+        abortEarly: false,
       });
-  }
-
-  const isFormInvalid = contactInfo.email.length === 0
-    || contactInfo.name.length === 0
-    || contactInfo.message.length === 0
-    || !isEmailValid;
+    },
+  });
 
   return (
     <form
-      onSubmit={handleSubmission}
+      id="formContact"
+      onSubmit={onSubmit || form.handleSubmit}
     >
       <Text
         tag="h2"
@@ -81,8 +87,11 @@ function FormContent() {
         <TextField
           placeholder="Nome"
           name="name"
-          value={contactInfo.name}
-          onChange={handleChange}
+          value={form.values.name}
+          error={form.errors.name}
+          isTouched={form.touched.name}
+          onChange={form.handleChange}
+          onBlur={form.handleBlur}
         />
       </div>
 
@@ -90,12 +99,11 @@ function FormContent() {
         <TextField
           placeholder="E-mail"
           name="email"
-          value={contactInfo.email}
-          onChange={handleChange}
-          onBlur={() => {
-            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            setIsEmailValid(re.test(contactInfo.email));
-          }}
+          value={form.values.email}
+          error={form.errors.email}
+          isTouched={form.touched.email}
+          onChange={form.handleChange}
+          onBlur={form.handleBlur}
         />
       </div>
 
@@ -105,15 +113,18 @@ function FormContent() {
           rows="8"
           placeholder="Mensagem"
           name="message"
-          value={contactInfo.message}
-          onChange={handleChange}
+          value={form.values.message}
+          error={form.errors.message}
+          isTouched={form.touched.message}
+          onChange={form.handleChange}
+          onBlur={form.handleBlur}
         />
       </div>
 
       <Button
         variant="primary.main"
         type="submit"
-        disabled={isFormInvalid || submissionStatus === formStates.LOADING}
+        disabled={form.isFormDisabled || submissionStatus === formStates.LOADING}
         fullWidth
       >
         Enviar
