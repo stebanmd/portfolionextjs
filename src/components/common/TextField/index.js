@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { Text } from '../../foundation/Text';
 
@@ -12,7 +12,15 @@ const Input = styled(Text)`
   border: 1px solid ${({ theme }) => theme.colors.tertiary.light.color};
   padding: 12px 16px;
   outline: 0;
-  resize: none;  
+  resize: none; 
+
+  ${({ theme, isFieldInvalid }) => isFieldInvalid && css`
+    border-color: ${theme.colors.error.main.color};
+    & + span {
+      color: ${theme.colors.error.main.color};
+      font-size: 11px;
+    }
+  `}
 `;
 
 Input.defaultProps = {
@@ -25,8 +33,13 @@ export default function TextField({
   name,
   onChange,
   value,
+  error,
+  isTouched,
   ...props
 }) {
+  const hasError = Boolean(error);
+  const isInvalid = isTouched && hasError;
+
   return (
     <InputWrapper>
       <Input
@@ -38,13 +51,30 @@ export default function TextField({
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
       />
+
+      {isInvalid && (
+        <Text
+          variant="smallestException"
+          color="error.main"
+          role="alert"
+        >
+          {error}
+        </Text>
+      )}
     </InputWrapper>
   );
 }
+
+TextField.defaultProps = {
+  error: '',
+  isTouched: false,
+};
 
 TextField.propTypes = {
   placeholder: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
+  error: PropTypes.string,
+  isTouched: PropTypes.bool,
 };
