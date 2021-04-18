@@ -1,7 +1,6 @@
 import React from 'react';
-import ProjectScreen from '../../src/components/screens/ProjectScreen';
+import ProjectScreen, { getContent } from '../../src/components/screens/ProjectScreen';
 import websitePageHOC from '../../src/components/wrappers/WebsitePage/hoc';
-import projectDb from '../../src/db/projects.json';
 
 function ProjectInternaPage({ project }) {
   return (
@@ -14,8 +13,8 @@ ProjectInternaPage.propTypes = ProjectScreen.propTypes;
 
 export default websitePageHOC(ProjectInternaPage);
 
-export async function getStaticProps({ params }) {
-  const project = projectDb.projects.find((p) => p.slug === params.slug);
+export async function getStaticProps({ params, preview }) {
+  const { project } = await getContent({ slug: params.slug, preview });
 
   return {
     props: {
@@ -30,7 +29,9 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const paths = projectDb.projects.map((project) => ({
+  const { allProjects } = await getContent();
+
+  const paths = allProjects.map((project) => ({
     params: { slug: project.slug },
   }));
 

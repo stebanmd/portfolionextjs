@@ -1,4 +1,4 @@
-import httpClient from '../httpClient';
+import httpClient from '../../infra/http/httpClient';
 
 const BASE_URL = 'https://contact-form-api-jamstack.herokuapp.com/message';
 
