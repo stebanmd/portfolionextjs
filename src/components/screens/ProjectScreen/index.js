@@ -6,6 +6,8 @@ import { Box } from '../../foundation/layout/Box';
 import { Grid } from '../../foundation/layout/Grid';
 import { Text } from '../../foundation/Text';
 
+export { getContent } from './getContent';
+
 const BackWrapper = styled.div`
   margin-top: 4.5rem;
   text-align: right;
@@ -28,7 +30,7 @@ export default function ProjectScreen({ project }) {
           >
             <img
               alt="Imagem do project"
-              src={project.img}
+              src={project.thumbnail.url}
               style={{ width: '100%' }}
             />
           </Grid.Col>
@@ -39,23 +41,25 @@ export default function ProjectScreen({ project }) {
             flexDirection="column"
           >
             <Text variant="paragraph2" marginBottom="10px">
-              {project.decription}
+              {project.description}
             </Text>
 
-            <Text variant="paragraph2" marginBottom="10px">
-              Clique
-              {' '}
-              <Text
-                variant="paragraph2"
-                href={project.url}
-                target="_blank"
-                fontWeight="700"
-              >
-                aqui
+            {project.url && (
+              <Text variant="paragraph2" marginBottom="10px">
+                Clique
+                {' '}
+                <Text
+                  variant="paragraph2"
+                  href={project.url}
+                  target="_blank"
+                  fontWeight="700"
+                >
+                  aqui
+                </Text>
+                {' '}
+                para visitar a página
               </Text>
-              {' '}
-              para visitar a página
-            </Text>
+            )}
 
             <BackWrapper>
               <Button
@@ -76,10 +80,10 @@ export default function ProjectScreen({ project }) {
 ProjectScreen.propTypes = {
   project: PropTypes.shape({
     url: PropTypes.string,
-    slug: PropTypes.string,
-    img: PropTypes.string,
+    thumbnail: PropTypes.shape({
+      url: PropTypes.string,
+    }),
     title: PropTypes.string,
-    resume: PropTypes.string,
-    decription: PropTypes.string,
+    description: PropTypes.string,
   }).isRequired,
 };

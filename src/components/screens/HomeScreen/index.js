@@ -1,26 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ProjectWrapper } from './style';
 import { Text } from '../../foundation/Text';
 import { ProjectCard, ProjectCardText } from '../../common/ProjectCard';
-import projectsDb from '../../../db/projects.json';
 
-const cards = projectsDb.projects;
+export { getContent } from './getContent';
 
-export default function HomeScreen() {
+export default function HomeScreen({ cards }) {
   return (
     <ProjectWrapper>
       <ProjectWrapper.Title>
         <Text tag="h2" variant="subTitle">Meus Projetos</Text>
       </ProjectWrapper.Title>
       <ProjectWrapper.CardGroup>
-        {cards.map((card) => (
+        {cards && cards.map((card) => (
           <ProjectCard key={card.slug}>
             <Text tag="a" href={`/project/${card.slug}`}>
-              <img src={card.img} alt="Imagem do projeto" />
+              <img src={card.thumbnail.url} alt="Imagem do projeto" />
               <ProjectCardText>
                 <header>
                   <Text tag="h3" variant="paragraph1">{card.title}</Text>
-                  <Text tag="p" variant="smallestException">{card.resume}</Text>
+                  <Text tag="p" variant="smallestException">{card.summary}</Text>
                 </header>
               </ProjectCardText>
             </Text>
@@ -31,3 +31,8 @@ export default function HomeScreen() {
     </ProjectWrapper>
   );
 }
+
+HomeScreen.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  cards: PropTypes.array.isRequired,
+};
